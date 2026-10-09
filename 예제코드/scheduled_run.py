@@ -12,10 +12,11 @@ import datetime
 import sys
 import time
 
-from adb_helper import check_device, key, open_url, screenshot, stop, tap_text
+from adb_helper import (check_device, key, open_url, screen_size, screenshot,
+                        stop, swipe)
 
-PACKAGE = "ctrip.english"
-URL = "https://kr.trip.com/sale/w/37676/gojapan.html?locale=ko-KR&transparentBar=1&wkp=1"
+PACKAGE = "com.android.chrome"
+URL = "https://www.google.com/search?q=seoul+weather"   # 정각에 확인하고 싶은 페이지
 PREPARE_SEC = 60          # 정각 몇 초 전에 준비를 시작할지
 
 
@@ -27,11 +28,11 @@ def prepare():
 
 
 def fire():
-    # 정각에 할 일. 예: 화면을 새로고침하고 "받기" 버튼 누르기
-    try:
-        tap_text("받기", timeout=5)
-    finally:
-        screenshot(f"fire_{datetime.datetime.now():%H%M%S}.png")
+    # 정각에 할 일. 예: 페이지를 새로고침(아래로 당기기)하고 캡처
+    w, h = screen_size()
+    swipe(w // 2, h // 4, w // 2, h * 3 // 4, 400)
+    time.sleep(2)
+    screenshot(f"fire_{datetime.datetime.now():%H%M%S}.png")
 
 
 def wait_until(target):

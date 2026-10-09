@@ -11,11 +11,11 @@ import sys
 import time
 import xml.etree.ElementTree as ET
 
-GOJAPAN_URL = "https://kr.trip.com/sale/w/37676/gojapan.html?locale=ko-KR&transparentBar=1&wkp=1"
+VIDEO_URL = "https://www.youtube.com/watch?v=jNQXAC9IVRw"  # 유튜브 최초의 영상 "Me at the zoo"
 
 # 실행할 동작 목록. 좌표는 screenshot으로 확인하세요.
 STEPS = [
-    ("open", GOJAPAN_URL, "ctrip.english"),  # 트립닷컴 앱에서 고재팬 페이지 바로 열기
+    ("open", VIDEO_URL, "com.google.android.youtube"),  # 유튜브 앱에서 영상 바로 열기
     ("wait", 3),
     # ("launch", "com.example.app"),     # 앱 실행 (패키지명)
     # ("tap_text", "이벤트"),             # 화면에서 해당 글자가 있는 요소 찾아 탭

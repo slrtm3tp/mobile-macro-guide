@@ -19,7 +19,7 @@
 | 9 | [예약 실행, 여러 기기, 한글 입력](강의노트/09_예약실행_여러기기_한글입력.md) | 정각 실행, cron, launchd, 스레드, ADBKeyboard |
 | 10 | [더 편한 도구들](강의노트/10_더편한도구들_uiautomator2_scrcpy.md) | scrcpy, uiautomator2, MacroDroid, iOS 단축어 |
 | 11 | [문제 해결과 안전 수칙](강의노트/11_문제해결과안전수칙.md) | 증상별 해결표, 약관, 보안 |
-| 12 | [종합 프로젝트: 고재팬 페이지 자동화](강의노트/12_종합프로젝트_고재팬자동화.md) | 요구사항 → 설계 → 구현 → 기록 → 자동 실행 |
+| 12 | [종합 프로젝트: 아침 브리핑 자동화](강의노트/12_종합프로젝트_아침브리핑자동화.md) | 요구사항 → 설계 → 구현 → 기록 → 자동 실행 |
 
 ---
 
@@ -34,14 +34,14 @@ python3 adb_helper.py
 
 | 파일 | 장 | 설명 |
 | --- | --- | --- |
-| [macro.py](예제코드/macro.py) | 6 | 혼자서도 동작하는 기본 매크로 (고재팬 페이지 열기) |
+| [macro.py](예제코드/macro.py) | 6 | 혼자서도 동작하는 기본 매크로 (유튜브 영상 바로 열기) |
 | [adb_helper.py](예제코드/adb_helper.py) | 5 | 다른 예제가 함께 쓰는 ADB 도우미 함수 모음 |
 | [macro_v2.py](예제코드/macro_v2.py) | 6 | 재시도·로그·오류 캡처를 갖춘 매크로 실행기 |
 | [clipboard_url.py](예제코드/clipboard_url.py) | 7 | 폰 클립보드의 주소를 크롬 주소창으로 읽어 오기 |
 | [image_match.py](예제코드/image_match.py) | 8 | OpenCV 템플릿 만들기·찾기·탭 |
 | [scheduled_run.py](예제코드/scheduled_run.py) | 9 | 정해진 시각에 정확히 실행 |
-| [u2_gojapan.py](예제코드/u2_gojapan.py) | 10 | uiautomator2 버전 매크로 |
-| [project_gojapan.py](예제코드/project_gojapan.py) | 12 | 종합 프로젝트 완성본 |
+| [u2_example.py](예제코드/u2_example.py) | 10 | uiautomator2로 메뉴 이동·한글 검색 |
+| [project_briefing.py](예제코드/project_briefing.py) | 12 | 종합 프로젝트 완성본 (아침 브리핑) |
 
 ---
 

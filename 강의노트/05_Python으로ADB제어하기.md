@@ -201,10 +201,10 @@ for node in root.iter("node"):          # 모든 <node>를 하나씩
 ```
 
 ```
-프로모션 [46,0][323,172]
-이벤트 [320,400][560,480]
-여행계획 [580,400][800,480]
-도쿄 여행을 준비하세요 [60,610][900,680]
+설정 [60,240][400,380]
+연결 [200,620][560,700]
+소리 및 진동 [200,980][700,1060]
+디스플레이 [320,400][560,480]
 ...
 ```
 
@@ -355,7 +355,7 @@ python3 adb_helper.py
 ```
 기기: [('SERIAL', 'device')]
 해상도: (1440, 3120)
-현재 앱: ('ctrip.english', 'com.ctrip.ibu.hybrid.v2.container.TripH5Container')
+현재 앱: ('com.android.chrome', 'org.chromium.chrome.browser.ChromeTabbedActivity')
 ```
 
 ---
@@ -379,8 +379,8 @@ python3 adb_helper.py
 ```
 출력 예:
 번호  글자                 좌표
-1     프로모션              (184, 86)
-2     이벤트                (440, 440)
+1     설정                  (230, 310)
+2     디스플레이            (440, 440)
 ...
 ```
 

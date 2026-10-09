@@ -18,7 +18,7 @@
 | 유튜브 | `com.google.android.youtube` |
 | 설정 | `com.android.settings` |
 | 카카오톡 | `com.kakao.talk` |
-| 트립닷컴 | `ctrip.english` |
+| 구글 지도 | `com.google.android.apps.maps` |
 | 삼성 계산기 | `com.sec.android.app.popupcalculator` |
 
 매크로에서 앱을 실행하거나 종료할 때는 항상 패키지명을 사용합니다.
@@ -35,12 +35,12 @@ adb shell pm list packages
 adb shell pm list packages -3
 
 # 이름에 특정 단어가 들어간 앱 찾기
-adb shell pm list packages | grep -i trip
+adb shell pm list packages | grep -i youtube
 ```
 
 ```
-package:ctrip.english
-package:com.titicacacorp.triple
+package:com.google.android.youtube
+package:com.google.android.apps.youtube.music
 ```
 
 `pm`은 Package Manager(패키지 관리자)의 줄임말입니다.
@@ -54,14 +54,14 @@ adb shell dumpsys activity activities | grep topResumedActivity
 ```
 
 ```
-topResumedActivity=ActivityRecord{254440182 u0 ctrip.english/com.ctrip.ibu.hybrid.v2.container.TripH5Container t11778}
+topResumedActivity=ActivityRecord{254440182 u0 com.android.chrome/org.chromium.chrome.browser.ChromeTabbedActivity t11778}
 ```
 
 ```
 결과 읽는 법
 
-  ctrip.english / com.ctrip.ibu.hybrid.v2.container.TripH5Container
-  └── 패키지명 ──┘ └────────────── 액티비티(화면) 이름 ──────────────┘
+  com.android.chrome / org.chromium.chrome.browser.ChromeTabbedActivity
+  └──── 패키지명 ────┘ └──────────── 액티비티(화면) 이름 ────────────┘
 ```
 
 **액티비티**는 앱 안의 화면 하나하나를 뜻합니다. 같은 앱이라도 홈 화면, 검색 화면, 웹페이지 화면은 서로 다른 액티비티일 수 있습니다.
@@ -70,11 +70,11 @@ topResumedActivity=ActivityRecord{254440182 u0 ctrip.english/com.ctrip.ibu.hybri
 
 ```bash
 # 앱 버전
-adb shell dumpsys package ctrip.english | grep versionName
+adb shell dumpsys package com.google.android.youtube | grep versionName
 #     versionName=x.y.z  (설치된 버전이 표시됨)
 
 # 앱이 설치된 경로
-adb shell pm path ctrip.english
+adb shell pm path com.google.android.youtube
 # package:/data/app/.../base.apk
 ```
 
@@ -91,7 +91,7 @@ adb shell monkey -p <패키지명> -c android.intent.category.LAUNCHER 1
 ```
 
 ```bash
-adb shell monkey -p ctrip.english -c android.intent.category.LAUNCHER 1
+adb shell monkey -p com.google.android.youtube -c android.intent.category.LAUNCHER 1
 ```
 
 ```
@@ -126,22 +126,22 @@ adb shell am force-stop <패키지명>
 ```
 
 ```bash
-adb shell am force-stop ctrip.english
+adb shell am force-stop com.google.android.youtube
 ```
 
 앱을 완전히 끕니다. 최근 앱 목록에서 밀어서 지우는 것보다 확실합니다.
 
 ### **예제 2: 항상 같은 화면에서 시작하기**
 
-매크로가 실패하는 가장 흔한 원인은 **시작 화면이 매번 달라서**입니다. 앱은 마지막에 보던 화면을 기억하기 때문에, 그냥 실행하면 홈이 아닌 다른 화면이 뜰 수 있습니다. (실제로 트립닷컴을 실행했을 때 전에 보던 eSIM 이벤트 페이지가 먼저 떴습니다.)
+매크로가 실패하는 가장 흔한 원인은 **시작 화면이 매번 달라서**입니다. 앱은 마지막에 보던 화면을 기억하기 때문에, 그냥 실행하면 홈이 아닌 다른 화면이 뜰 수 있습니다. (예: 쇼핑 앱을 열었더니 홈 대신 어제 보던 상품 페이지가 먼저 뜨는 경우)
 
 ```bash
 # 1. 앱을 완전히 종료
-adb shell am force-stop ctrip.english
+adb shell am force-stop com.google.android.youtube
 sleep 1
 
 # 2. 다시 실행 → 항상 첫 화면(홈)부터 시작
-adb shell monkey -p ctrip.english -c android.intent.category.LAUNCHER 1
+adb shell monkey -p com.google.android.youtube -c android.intent.category.LAUNCHER 1
 sleep 4
 
 # 3. 지금 어떤 화면인지 확인
@@ -235,7 +235,7 @@ adb pull /sdcard/macro_test.mp4
 | 잠겨 있나? | `adb shell dumpsys window \| grep mDreamingLockscreen` | `mDreamingLockscreen=false` |
 | 화면 방향 | `adb shell dumpsys input \| grep SurfaceOrientation` | `SurfaceOrientation: 0` (0=세로, 1·3=가로) |
 | 배터리 | `adb shell dumpsys battery \| grep level` | `level: 71` |
-| 현재 포커스 창 | `adb shell dumpsys window \| grep mCurrentFocus` | `mCurrentFocus=Window{... ctrip.english/...}` |
+| 현재 포커스 창 | `adb shell dumpsys window \| grep mCurrentFocus` | `mCurrentFocus=Window{... com.android.chrome/...}` |
 
 ### **예제 5: 화면이 꺼져 있으면 켜기**
 

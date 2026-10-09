@@ -9,16 +9,16 @@ import time
 from adb_helper import (AdbError, check_device, key, launch, open_url,
                         screenshot, stop, swipe, tap, tap_text, text, wait_for)
 
-PACKAGE = "ctrip.english"
-GOJAPAN_URL = "https://kr.trip.com/sale/w/37676/gojapan.html?locale=ko-KR&transparentBar=1&wkp=1"
+PACKAGE = "com.google.android.youtube"
+VIDEO_URL = "https://www.youtube.com/watch?v=jNQXAC9IVRw"   # 유튜브 최초의 영상 "Me at the zoo"
 
 STEPS = [
     ("stop", PACKAGE),
-    ("open", GOJAPAN_URL, PACKAGE),
-    ("wait_for", "할인쿠폰"),          # 페이지가 뜰 때까지 최대 15초
-    ("swipe", 720, 2400, 720, 1200, 400),
-    ("wait", 1),
-    ("shot", "gojapan"),
+    ("open", VIDEO_URL, PACKAGE),
+    ("wait_for", "zoo"),               # 영상 제목이 보일 때까지 최대 15초
+    ("wait", 2),
+    ("shot", "youtube"),
+    ("key", "KEYCODE_BACK"),
 ]
 REPEAT = 1
 RETRIES = 2          # 단계가 실패하면 다시 시도할 횟수

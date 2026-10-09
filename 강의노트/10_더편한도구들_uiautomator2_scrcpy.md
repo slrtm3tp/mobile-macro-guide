@@ -91,9 +91,9 @@ print(d.info)
 
 | 기능 | 코드 |
 | --- | --- |
-| 앱 실행 | `d.app_start("ctrip.english")` |
-| 앱 종료 후 실행 | `d.app_start("ctrip.english", stop=True)` |
-| 앱 종료 | `d.app_stop("ctrip.english")` |
+| 앱 실행 | `d.app_start("com.google.android.youtube")` |
+| 앱 종료 후 실행 | `d.app_start("com.google.android.youtube", stop=True)` |
+| 앱 종료 | `d.app_stop("com.google.android.youtube")` |
 | 현재 앱 | `d.app_current()` → `{'package': ..., 'activity': ...}` |
 | 주소 열기 | `d.open_url("https://...")` |
 | 화면 크기 | `d.window_size()` → `(1440, 3120)` |
@@ -106,7 +106,7 @@ print(d.info)
 d(text="이벤트")                     # 글자가 정확히 같은 요소
 d(textContains="할인")               # 글자를 포함하는 요소
 d(description="검색창")              # content-desc
-d(resourceId="ctrip.english:id/gio") # resource-id
+d(resourceId="com.android.chrome:id/url_bar")  # resource-id
 d(className="android.widget.EditText")  # 입력창
 d(text="확인", clickable=True)       # 여러 조건 동시에
 ```
@@ -178,31 +178,32 @@ if d(text="다크 모드").wait(timeout=5):
 
 줄 수는 비슷하지만, uiautomator2는 화면 조회가 빨라 전체 실행 시간이 크게 줄고 한글 입력도 바로 됩니다.
 
-### **예제 3: uiautomator2로 고재팬 열기**
+### **예제 3: 크롬에서 한글로 검색하기**
 
-전체 코드는 [`예제코드/u2_gojapan.py`](../예제코드/u2_gojapan.py)에 있습니다.
+ADBKeyboard 없이 한글을 입력할 수 있다는 것이 uiautomator2의 큰 장점입니다. 전체 코드는 [`예제코드/u2_example.py`](../예제코드/u2_example.py)에 있습니다.
 
 ```python
 import uiautomator2 as u2
 
+CHROME = "com.android.chrome"
 d = u2.connect()
-d.app_stop("ctrip.english")
-d.open_url("https://kr.trip.com/sale/w/37676/gojapan.html?locale=ko-KR&transparentBar=1&wkp=1")
-d.sleep(4)
+
+d.app_stop(CHROME)
+d.shell(f"am start -a android.intent.action.VIEW -d about:blank {CHROME}")   # 빈 탭으로 시작
+d(resourceId=f"{CHROME}:id/url_bar").click(timeout=10)                      # 주소창
+d.send_keys("서울 날씨", clear=True)                                          # 한글 입력
+d.press("enter")
+d.sleep(3)
 print(d.app_current())
 d.swipe_ext("up", scale=0.6)
-d.screenshot("u2_gojapan.png")
+d.screenshot("u2_weather.png")
 ```
 
 ```
-{'package': 'ctrip.english', 'activity': 'com.ctrip.ibu.hybrid.v2.container.TripH5Container', ...}
+{'package': 'com.android.chrome', 'activity': 'org.chromium.chrome.browser.ChromeTabbedActivity', ...}
 ```
 
-`open_url`은 패키지를 지정하지 않으므로, 앱 선택 창이 뜨거나 브라우저로 열리면 7장의 `am start ... ctrip.english` 방식을 `d.shell(...)`로 실행하세요.
-
-```python
-d.shell(f"am start -a android.intent.action.VIEW -d '{URL}' ctrip.english")
-```
+`d.open_url(주소)`로 페이지를 열 수도 있지만 앱을 지정하지 않습니다. 특정 앱으로 열어야 한다면 위처럼 7장의 `am start ... 패키지명` 방식을 `d.shell(...)`로 실행하세요.
 
 ---
 
@@ -228,11 +229,11 @@ PC 없이 폰 혼자 매크로를 돌리고 싶을 때 씁니다.
 "**트리거 → 액션 → 제약 조건**" 세 칸을 채우는 방식입니다.
 
 ```
-예) 매주 수요일 9시 58분에 고재팬 페이지 열기
+예) 평일 아침 7시 30분에 날씨 페이지 열기
 
-  트리거   : 요일/시간 → 수요일 09:58
-  액션     : 웹사이트 열기 → https://kr.trip.com/sale/w/37676/gojapan.html?locale=ko-KR
-             (또는 "인텐트 보내기"로 패키지 ctrip.english 지정)
+  트리거   : 요일/시간 → 월~금 07:30
+  액션     : 웹사이트 열기 → https://www.google.com/search?q=seoul+weather
+             (또는 "인텐트 보내기"로 패키지 com.android.chrome 지정)
   제약 조건 : Wi-Fi 연결됨
 ```
 
@@ -248,9 +249,9 @@ MacroDroid보다 기능이 많고 변수·조건문·반복을 쓸 수 있어 �
 
 ```
 단축어 앱 → 자동화 → 새로운 자동화 → 특정 시간
-  시간: 오전 9:58 / 반복: 매주 수요일
+  시간: 오전 7:30 / 반복: 평일
   "즉시 실행" 선택 (실행 전에 묻지 않기)
-  동작 추가: URL 열기 → https://kr.trip.com/sale/w/37676/gojapan.html?locale=ko-KR
+  동작 추가: URL 열기 → https://www.google.com/search?q=seoul+weather
 ```
 
 화면의 특정 위치를 탭하는 동작은 없으므로, 주소로 열 수 있는 화면까지만 자동화할 수 있습니다.
