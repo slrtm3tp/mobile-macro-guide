@@ -51,7 +51,7 @@ print(result.stdout)
 ```
 성공 여부: 0
 List of devices attached
-R5CT1234ABC	device
+SERIAL	device
 ```
 
 `text=True`를 주면 결과가 bytes 대신 문자열(str)로 나옵니다. 단, 화면 캡처처럼 이미지 데이터를 받을 때는 `text=True`를 빼야 합니다.
@@ -174,7 +174,7 @@ else:
 ```
 
 ```
-✅ R5CT1234ABC: device
+✅ SERIAL: device
 모델: SM-S948N
 해상도: Physical size: 1440x3120
 ```
@@ -353,7 +353,7 @@ python3 adb_helper.py
 ```
 
 ```
-기기: [('R5CT1234ABC', 'device')]
+기기: [('SERIAL', 'device')]
 해상도: (1440, 3120)
 현재 앱: ('ctrip.english', 'com.ctrip.ibu.hybrid.v2.container.TripH5Container')
 ```

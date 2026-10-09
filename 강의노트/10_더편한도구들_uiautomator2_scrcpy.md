@@ -71,7 +71,7 @@ pip3 install uiautomator2
 import uiautomator2 as u2
 
 d = u2.connect()              # USB 기기 하나일 때
-# d = u2.connect("R5CT1234ABC")       # 시리얼 지정
+# d = u2.connect("SERIAL")       # 시리얼 지정
 # d = u2.connect("192.168.0.12:41234") # 무선
 
 print(d.info)

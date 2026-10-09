@@ -7,7 +7,7 @@ import subprocess
 import time
 import xml.etree.ElementTree as ET
 
-SERIAL = None  # 기기가 여러 대면 "R5CT1234ABC"처럼 시리얼을 넣으세요.
+SERIAL = None  # 기기가 여러 대면 adb devices에 나온 시리얼 번호를 문자열로 넣으세요.
 
 
 class AdbError(Exception):
